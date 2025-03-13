@@ -151,12 +151,21 @@ public class MinPQ<Key> implements Iterable<Key> {
     * Helper functions to restore the heap invariant.
     ***************************************************************************/
 
-    private void swim(int k) {
-        //STUDENT TODO
-    }
+   private void swim(int k) {
+       while (k > 1 && greater(k / 2, k)) { // While the parent is greater, swap with parent
+           exch(k, k / 2);
+           k = k / 2; // Move up in the heap
+       }
+   }
 
     private void sink(int k) {
-        //STUDENT TODO
+        while (2 * k <= n) { // While there's at least one child
+            int j = 2 * k; // Left child index
+            if (j < n && greater(j, j + 1)) j++; // Select the smaller child
+            if (!greater(k, j)) break; // If the parent is smaller, stop sinking
+            exch(k, j);
+            k = j; // Move down in the heap
+        }
     }
 
    /***************************************************************************
